@@ -53,8 +53,8 @@ func parseConfig() Config {
 	}
 
 	flag.IntVar(&cfg.Port, "port", defaultPort, "Port to listen on (env: PORT)")
-	// Bind to localhost by default instead of all interfaces — safer for local dev
-	flag.StringVar(&cfg.Host, "host", envOrDefault("HOST", "127.0.0.1"), "Host to bind to (env: HOST)")
+	// Changed default host to 0.0.0.0 so it's reachable on my local network without extra flags
+	flag.StringVar(&cfg.Host, "host", envOrDefault("HOST", "0.0.0.0"), "Host to bind to (env: HOST)")
 	flag.StringVar(&cfg.Token, "token", os.Getenv("API_TOKEN"), "API authentication token (env: API_TOKEN)")
 	flag.BoolVar(&cfg.Debug, "debug", os.Getenv("DEBUG") == "true", "Enable debug mode (env: DEBUG)")
 	flag.Parse()
@@ -118,5 +118,4 @@ func handleSub(c *gin.Context) {
 	}
 
 	// TODO: fetch and convert subscription content
-	c.JSON(http.StatusNotImplemented, gin.H{"message": "conversion not yet implemented", "url": subURL})
-}
+	c.JSON(http.StatusNotImpleme
