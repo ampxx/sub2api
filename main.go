@@ -8,8 +8,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/gin-gonic/gin"
-)
+	"github.com/gin-gonic/gin")
 
 // Version information, injected at build time
 var (
@@ -47,8 +46,8 @@ func main() {
 func parseConfig() Config {
 	cfg := Config{}
 
-	// Default to port 8080, or 9090 as my personal fallback if PORT env is not set
-	defaultPort := 9090
+	// Default to port 8080, or 8080 if PORT env is not set
+	defaultPort := 8080
 	if p, err := strconv.Atoi(os.Getenv("PORT")); err == nil {
 		defaultPort = p
 	}
@@ -119,17 +118,4 @@ func handleSub(c *gin.Context) {
 
 	// TODO: fetch and convert subscription content
 	c.JSON(http.StatusNotImplemented, gin.H{"message": "conversion not yet implemented", "url": subURL})
-}
-
-// tokenAuthMiddleware rejects requests that do not carry the correct Bearer token.
-func tokenAuthMiddleware(token string) gin.HandlerFunc {
-	return func(c *gin.Context) {
-		auth := c.GetHeader("Authorization")
-		expected := "Bearer " + token
-		if auth != expected {
-			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "unauthorized"})
-			return
-		}
-		c.Next()
-	}
 }
