@@ -53,7 +53,8 @@ func parseConfig() Config {
 	}
 
 	flag.IntVar(&cfg.Port, "port", defaultPort, "Port to listen on (env: PORT)")
-	flag.StringVar(&cfg.Host, "host", envOrDefault("HOST", "0.0.0.0"), "Host to bind to (env: HOST)")
+	// Bind to localhost by default instead of all interfaces — safer for local dev
+	flag.StringVar(&cfg.Host, "host", envOrDefault("HOST", "127.0.0.1"), "Host to bind to (env: HOST)")
 	flag.StringVar(&cfg.Token, "token", os.Getenv("API_TOKEN"), "API authentication token (env: API_TOKEN)")
 	flag.BoolVar(&cfg.Debug, "debug", os.Getenv("DEBUG") == "true", "Enable debug mode (env: DEBUG)")
 	flag.Parse()
