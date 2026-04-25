@@ -47,7 +47,8 @@ func main() {
 func parseConfig() Config {
 	cfg := Config{}
 
-	defaultPort := 8080
+	// Default to port 8080, or 9090 as my personal fallback if PORT env is not set
+	defaultPort := 9090
 	if p, err := strconv.Atoi(os.Getenv("PORT")); err == nil {
 		defaultPort = p
 	}
@@ -59,6 +60,15 @@ func parseConfig() Config {
 	flag.Parse()
 
 	return cfg
+}
+
+// envOrDefault returns the value of the named environment variable, or
+// the provided fallback if the variable is unset or empty.
+func envOrDefault(key, fallback string) string {
+	if v := os.Getenv(key); v != "" {
+		return v
+	}
+	return fallback
 }
 
 // setupRouter initialises the Gin engine and registers all routes.
@@ -122,12 +132,4 @@ func tokenAuthMiddleware(token string) gin.HandlerFunc {
 		}
 		c.Next()
 	}
-}
-
-// envOrDefault returns the value of an environment variable or a fallback.
-func envOrDefault(key, fallback string) string {
-	if v := os.Getenv(key); v != "" {
-		return v
-	}
-	return fallback
 }
