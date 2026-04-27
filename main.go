@@ -108,9 +108,9 @@ func handleVersion(c *gin.Context) {
 // handleSub is the main subscription conversion endpoint.
 // Query params:
 //
-//	url   — the upstream subscription URL (required)
-//	type  — output format, e.g. "clash", "v2ray" (optional, defaults to raw)
-//	timeout — request timeout in seconds (optional, defaults to 10)
+//	url     — the upstream subscription URL (required)
+//	type    — output format, e.g. "clash", "v2ray" (optional, defaults to raw)
+//	timeout — request timeout in seconds (optional, defaults to 30)
 func handleSub(c *gin.Context) {
 	subURL := c.Query("url")
 	if subURL == "" {
@@ -118,6 +118,3 @@ func handleSub(c *gin.Context) {
 		return
 	}
 
-	// TODO: fetch and convert subscription content
-	c.JSON(http.StatusOK, gin.H{"url": subURL})
-}
