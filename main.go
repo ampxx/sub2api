@@ -110,11 +110,12 @@ func handleVersion(c *gin.Context) {
 //
 //	url     — the upstream subscription URL (required)
 //	type    — output format, e.g. "clash", "v2ray" (optional, defaults to raw)
-//	timeout — request timeout in seconds (optional, defaults to 30)
+//	timeout — request timeout in seconds (optional, defaults to 15)
+//
+// Note: reduced default timeout from 30s to 15s — upstream subs on my setup
+// are always fast; a shorter timeout surfaces hung requests more quickly.
 func handleSub(c *gin.Context) {
 	subURL := c.Query("url")
 	if subURL == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "url parameter is required"})
 		return
-	}
-
