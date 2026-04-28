@@ -13,7 +13,7 @@ import (
 
 const (
 	// DefaultTimeout is the default HTTP client timeout for fetching subscriptions
-	DefaultTimeout = 30 * time.Second
+	DefaultTimeout = 15 * time.Second
 	// MaxResponseSize limits the subscription response body to 10MB
 	MaxResponseSize = 10 * 1024 * 1024
 )
