@@ -115,8 +115,6 @@ func handleVersion(c *gin.Context) {
 // Note: reduced default timeout from 30s to 10s — my upstreams are all
 // low-latency; a tighter timeout catches hangs faster and keeps the UX snappy.
 //
-// Note: token auth is optional — if API_TOKEN is not set, the /api routes are
-// open. Fine for local/homelab use, but don't expose this to the internet
-// without setting a token.
-//
-// Not
+// Note: token auth is optional — if API_TOKEN is unset the /api routes are
+// open. That's fine for local/home-network use but don't expose this to the
+// public internet without setting a token.
