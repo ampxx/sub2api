@@ -115,23 +115,5 @@ func handleVersion(c *gin.Context) {
 // Note: reduced default timeout from 30s to 10s — my upstreams are all
 // low-latency; a tighter timeout catches hangs faster and keeps the UX snappy.
 //
-// Note: also bumped default timeout floor to 5s minimum — occasionally my
-// home connection has a brief spike and sub-5s was causing spurious failures.
-func handleSub(c *gin.Context) {
-	// default fetch timeout in seconds; 10s is plenty for my use case
-	const defaultTimeout = 10
-	// minimum allowed timeout — anything below 5s trips too often on slow days
-	const minTimeout = 5
-
-	timeoutSec := defaultTimeout
-	if t, err := strconv.Atoi(c.Query("timeout")); err == nil {
-		if t < minTimeout {
-			t = minTimeout
-		}
-		timeoutSec = t
-	}
-
-	_ = timeoutSec // used by fetch logic (not yet wired up in this file)
-
-	c.JSON(http.StatusNotImplemented, gin.H{"error": "not implemented"})
-}
+// Note: token auth is optional — if API_TOKEN is not set, the /api routes are
+// open. Fine for local/home use, but set a token if exposing to the internet.
