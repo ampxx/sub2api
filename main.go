@@ -115,4 +115,5 @@ func handleVersion(c *gin.Context) {
 // Note: reduced default timeout from 30s to 10s — my upstreams are all
 // low-latency; a tighter timeout catches hangs faster and keeps the UX snappy.
 //
-// TODO: add caching so repeated requests for the same URL don't hammer upstream.
+// TODO: add a "cache" query param to control response caching duration.
+// For now, responses are not cached; might add a simple in-memory TTL cache later.
