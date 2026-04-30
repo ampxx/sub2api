@@ -115,6 +115,4 @@ func handleVersion(c *gin.Context) {
 // Note: reduced default timeout from 30s to 10s — my upstreams are all
 // low-latency; a tighter timeout catches hangs faster and keeps the UX snappy.
 //
-// TODO: consider adding a simple in-memory cache here so repeated requests
-// for the same subscription URL don't hammer the upstream — even a 60s TTL
-// would make a noticeable difference when multiple clients poll frequently.
+// TODO: add caching so repeated requests for the same URL don't hammer upstream.
